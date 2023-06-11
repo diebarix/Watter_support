@@ -184,7 +184,7 @@ function Home() {
 	/* const myData = { date: "10-50-69", ph: 6, water_flow: 12 };
 	const myDataJSON = JSON.stringify(myData); */
 	const myDataJSON =
-		'[{"date": "10-50-69", "ph": 6, "water_flow": 12}, {"date": "10-60-79", "ph": 7, "water_flow": 15}]';
+		'[{"date": "10-50-69", "ph": 6, "water_flow": 12}, {"date": "10-60-79", "ph": 7, "water_flow": 15},{"date": "10-60-79", "ph": 10, "water_flow": 25},{"date": "10-60-79", "ph": 2, "water_flow": 55},{"date": "10-60-79", "ph": 20, "water_flow": 5}]';
 	// console.log(myDataJSON);
 
 	const newData = JSON.parse(myDataJSON);
@@ -192,12 +192,12 @@ function Home() {
 	/* 	const metadata = useWasmMetadata("assets/wasm/nft.meta.wasm");
 
 	console.log(metadata); */
-	// let dateContent: string[] = [];
+	const dateContent: string[] = [];
 	const phContent: number[] = [];
 	const waterFlowContent: number[] = [];
 
 	for (let i = 0; i < newData.length; i += 1) {
-		// dateContent.push(newData[i].date)
+		dateContent.push(newData[i].date);
 		phContent.push(newData[i].ph);
 		waterFlowContent.push(newData[i].water_flow);
 		// console.log("the date is: " + newData[i].date);
@@ -209,8 +209,10 @@ function Home() {
 	// console.log("Content1: " + dateContent);
 	/* console.log("Content2: ", phContent.toString());
 	console.log("Content3: ", waterFlowContent[1].toString()); */
+
+	const labelsProof = dateContent;
 	const dataProof = {
-		labels,
+		labels: labelsProof,
 		datasets: [
 			{
 				label: "ph",
