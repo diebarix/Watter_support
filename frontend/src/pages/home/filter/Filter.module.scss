@@ -1,0 +1,15 @@
+@use "@gear-js/ui/variables" as *;
+
+.filter {
+	padding: 4px;
+	background-color: var(--main-bg-color);
+	border-radius: $borderRadius;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 10px;
+
+	& > *:not(:last-child) {
+		margin-right: 5px;
+	}
+}

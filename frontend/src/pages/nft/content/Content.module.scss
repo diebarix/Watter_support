@@ -1,0 +1,42 @@
+@use "@gear-js/ui/variables" as *;
+@use "assets/styles/shared" as *;
+
+.heading {
+	margin-bottom: 50px;
+	font-family: Syncopate, sans-serif;
+	font-size: 32px;
+	line-height: 40px;
+	text-align: center;
+}
+
+.main {
+	display: grid;
+	// grid-template-columns: repeat(2, minmax(0, 2fr));
+	grid-template-columns: repeat(auto-fill, minmax(600px, 2fr));
+	/* grid-template-columns: 1fr 1fr ;
+	grid-template-rows: repeat(1, 1fr); */
+	/* grid-auto-rows: minmax(10px, 80%);
+	grid-auto-columns: minmax(100px, 100px); */
+	column-gap: 30px;
+	grid-gap: 60px;
+}
+
+.details {
+	margin-bottom: 30px;
+}
+
+.image {
+	display: block;
+	max-height: 350px;
+	margin: 0 auto;
+	border-radius: $borderRadius;
+}
+
+.buttons {
+	display: flex;
+	margin-top: 30px;
+
+	& > *:not(:last-child) {
+		margin-right: 30px;
+	}
+}

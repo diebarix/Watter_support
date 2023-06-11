@@ -1,0 +1,22 @@
+.button {
+	color: var(--fourth-color);
+	background-color: var(--main-bg-color);
+	padding: 10px;
+	display: flex;
+	gap: 10px;
+	border-radius: 5px;
+	margin-right: 14px;
+}
+
+.button:hover {
+	background-color: var(--fourth-color);
+	color: var(--main-bg-color);
+	box-shadow: 0px 0px 1px 3px var(--main-bg-color);
+	transform: translateY(-8px);
+}
+
+.medium {
+}
+
+.primary {
+}

@@ -1,0 +1,35 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 30px 0;
+	border-bottom: 4px solid rgb(12, 38, 80);
+}
+
+.button_style {
+	color: var(--text-color);
+	background-color: var(--second-color);
+}
+
+.logo {
+	padding: 8px;
+	border-radius: 10px;
+	margin: 0 auto;
+	width: 130px;
+	color: red;
+	padding: 0;
+}
+
+.link_style {
+	border-top: 1px solid rgb(48, 162, 255);
+	border-bottom: 1px solid rgb(48, 162, 255);
+	// background-color: red;
+	font-weight: 700;
+	margin: auto;
+	margin-top: 20px;
+	font-size: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 20px;
+}

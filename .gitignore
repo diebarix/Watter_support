@@ -1,0 +1,9 @@
+contract/target
+contract/.binpath
+contract/*.txt
+contract/.metahash
+
+frontend/node_modules
+frontend/yarn-error.log
+
+node_modules

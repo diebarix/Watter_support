@@ -1,0 +1,91 @@
+@use "@gear-js/ui/variables" as *;
+
+@mixin verticalGap($gap) {
+	& > *:not(:last-child) {
+		margin-bottom: $gap;
+	}
+}
+
+@mixin horizontalGap($gap) {
+	& > *:not(:last-child) {
+		margin-right: $gap;
+	}
+}
+
+.heading {
+	margin-bottom: 32px;
+	// TODO: replace w/ @gear-js/ui heading styles
+	font-size: 22px;
+	line-height: 30px;
+	color: var(--text-color);
+	text-align: center;
+}
+
+.main {
+	padding: 25px 40px;
+	background-color: var(--third-color);
+	border: 1px solid var(--main-bg-color);
+	border-radius: 5px;
+	/* 	display: flex;
+	align-items: center;
+	justify-content: center; */
+	max-width: 800px;
+	margin: auto;
+}
+
+.form {
+	@include verticalGap(32px);
+}
+
+.item {
+	@include horizontalGap(32px);
+	display: flex;
+	align-items: center;
+}
+
+.input,
+.button {
+}
+
+.button {
+	background-color: var(--main-bg-color);
+	/* border-top: 3px solid var(--fourth-color);
+	border-left: 3px solid var(--fourth-color); */
+	box-shadow: 0 0 5px 3px var(--color-soft);
+}
+
+.button:hover {
+	background-color: var(--fourth-color);
+	/* border-right: 3px solid var(--main-bg-color);
+	border-bottom: 3px solid var(--main-bg-color); */
+	box-shadow: 0 0 10px 3px var(--main-bg-color);
+}
+
+.input {
+	flex: 1;
+	display: grid;
+	grid-template-columns: 4fr 6fr;
+	color: var(--text-color);
+	font-weight: 500;
+	max-width: 530px;
+}
+
+.error {
+	color: var(--text-light);
+	background-color: rgba(255, 0, 0, 0.6);
+	padding: 0px 2px;
+	font-weight: 300;
+	border-radius: 3px;
+}
+
+.checkbox {
+	&Wrapper {
+		&::before {
+			content: "";
+		}
+	}
+
+	&Error {
+		margin-left: auto;
+	}
+}
