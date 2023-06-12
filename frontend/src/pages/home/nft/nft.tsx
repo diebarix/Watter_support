@@ -5,11 +5,18 @@ import styles from "./NFT.module.scss";
 type Props = {
 	id: string;
 	name: string;
+	description: string;
 	media: string;
 	reference: string;
 };
 
-function NFT({ id, name, media, reference }: Props) {
+function NFT({
+	id,
+	name,
+	media,
+	description,
+	reference,
+}: Props) {
 	const to = `/nft/${id}`;
 	const cidRef = reference;
 	const text = `#${id}`;
@@ -19,6 +26,9 @@ function NFT({ id, name, media, reference }: Props) {
 				<h3>{name}</h3>
 				<p>
 					<span className={styles.atribut}>Number:</span> {text}
+				</p>
+				<p>
+					<span className={styles.atribut}>Description:</span> {description}
 				</p>
 				<p>
 					<span className={styles.atribut}>Reference:</span> {cidRef}

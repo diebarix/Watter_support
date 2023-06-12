@@ -12,6 +12,8 @@ type Token = {
 	name: string;
 	ownerId: HexString;
 	reference: string;
+	waterFlow: number;
+	ph: number;
 };
 
 //Podemos quitarlo

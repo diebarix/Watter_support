@@ -4,10 +4,12 @@ import {
 	useSendMessage,
 } from "@gear-js/react-hooks";
 import { ADDRESS } from "consts";
-import { Params, Token } from "types";
+import { Params, Token, TokenDetails } from "types";
 import { useParams } from "react-router-dom";
 import stateMetaWasm from "assets/wasm/state.meta.wasm";
 import metaTxt from "assets/meta/meta.txt";
+import { getIpfsAddress } from "utils";
+import { useEffect, useState } from "react";
 import { useMetadata, useWasmMetadata } from "./useMetadata";
 // import moduleName from "../assets/wasm/nft.meta.wasm";
 
@@ -33,8 +35,6 @@ function useNFT() {
 }
 
 function useNFTs() {
-	/* const { state, isStateRead } = useNFTState<Token[]>("all_tokens", null);
-	return { nfts: state, isNftStateRead: isStateRead }; */
 	const { state } = useNFTState<Token[]>("all_tokens", null);
 	return state;
 }

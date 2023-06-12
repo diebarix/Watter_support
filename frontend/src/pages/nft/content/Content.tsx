@@ -46,19 +46,6 @@ function Content(props: Props) {
 		<>
 			<h2 className={styles.heading}>{heading}</h2>
 			<div className={styles.main}>
-				{/* 				<section>
-					{isOwner && (
-						<div className={styles.buttons}>
-							<Button
-								text="Transfer"
-								color="secondary"
-								onClick={onTransferButtonClick}
-								block
-							/>
-							<Button text="Approve" onClick={onApproveButtonClick} block />
-						</div>
-					)}
-				</section> */}
 				<section>
 					<div className={styles.card_container}>
 						<Card heading="Owner" text={ownerId} />

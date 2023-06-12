@@ -3,7 +3,7 @@ import { InfoText, Loader } from "components";
 // import { /* InfoText */ useNFTs } from "hooks/api";
 import { FILTERS } from "consts";
 import { Enlace } from "Enlace";
-import { ReadState } from "components/ReadState";
+import { ReadState } from "components/Chart";
 import { Link } from "react-router-dom";
 import { GearApi } from "@gear-js/api";
 import { Button } from "@gear-js/ui";
@@ -24,6 +24,7 @@ import {
 	Tooltip,
 	Legend,
 } from "chart.js";
+import { TokenDetails } from "types";
 import { Line } from "react-chartjs-2";
 import { NFT } from "./nft";
 import { Filter } from "./filter";
@@ -135,7 +136,11 @@ function Home() {
 	const nfts = useNFTs();
 	const { ownerNFTs, isOwnerNFTsRead } = useOwnerNFTs();
 	const { approvedNFTs, isApprovedNFTsRead } = useApprovedNFTs();
+	const [details, setDetails] = useState<TokenDetails>();
+	// const { waterFlow, ph, residence } = details || {};
 
+	/* 	console.log("ph:", ph);
+	console.log("waterflowssss:", ph); */
 	const getList = () => {
 		switch (filter) {
 			case "My":
@@ -161,19 +166,26 @@ function Home() {
 		return null;
 	}; */
 	const list = getList();
-	console.log("list:", list);
+	// console.log("list:", list.);
 	const getNFTs = () => {
 		// const list = getList();
 		// console.log("list:", list);
 		if (Array.isArray(list)) {
-			return getList()?.map(({ id, name, media, reference }) => (
+			return list.map(({ id, name, media, reference, description }) => (
 				<li key={id}>
-					<NFT id={id} name={name} media={media} reference={reference} />
+					<NFT
+						id={id}
+						name={name}
+						media={media}
+						description={description}
+						reference={reference}
+					/>
 				</li>
 			));
 		}
 		return null;
 	};
+
 	/* 	const getNFTs = () =>
 		getList()?.map(({ id, name, media, reference }) => (
 			<li key={id}>
@@ -239,7 +251,13 @@ function Home() {
 		nfts && (account ? isOwnerNFTsRead && isApprovedNFTsRead : true);
 	const isAnyNft = !!NFTs?.length;
 
-	console.log("nft", nfts);
+	/* nfts?.map(nft_l => {
+		let nft_content: string[] = [];
+		nft_content += nft_l;
+	}); */
+
+	/* console.log("nft", nfts);
+	console.log("list:", list); */
 	/* console.log("owner", ownerNFTs);
 	console.log("aproved", approvedNFTs);
 	console.log(NFTs); */
@@ -247,6 +265,7 @@ function Home() {
 	return (
 		<>
 			<Enlace title="Water NFT" />
+
 			<div className="card">
 				<h2 style={{ marginTop: "30px" }}>NFTs</h2>
 				{account && (
@@ -267,7 +286,6 @@ function Home() {
 					)
 				}
 			</div>
-			<Enlace title="Water Statistics" />
 			{account && (
 				<div className={styles.fondo}>
 					<div className={styles.container_btn_register}>
@@ -278,18 +296,11 @@ function Home() {
 							</button>
 						</Link>
 					</div>
-					<Line
-						style={{ marginBottom: "200px" }}
-						options={options1}
-						data={dataProof}
-					/>
-					<Line options={options2} data={dataProof} />
 				</div>
 			)}
+			<Enlace title="Water Statistics" />
 			{!account && <h2>Statistics not available</h2>}
-			<Enlace title="Get state" />
-			{account && <ReadState />}
-			{!account && <h2>Sate not available</h2>}
+			<ReadState />
 		</>
 	);
 }
