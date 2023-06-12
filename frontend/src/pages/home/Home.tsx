@@ -250,57 +250,51 @@ function Home() {
 	const isEachNftLoaded =
 		nfts && (account ? isOwnerNFTsRead && isApprovedNFTsRead : true);
 	const isAnyNft = !!NFTs?.length;
-
-	/* nfts?.map(nft_l => {
-		let nft_content: string[] = [];
-		nft_content += nft_l;
-	}); */
-
-	/* console.log("nft", nfts);
-	console.log("list:", list); */
-	/* console.log("owner", ownerNFTs);
-	console.log("aproved", approvedNFTs);
-	console.log(NFTs); */
+	console.log(ownerNFTs);
 
 	return (
 		<>
 			<Enlace title="Water NFT" />
-
-			<div className="card">
-				<h2 style={{ marginTop: "30px" }}>NFTs</h2>
-				{account && (
-					<Filter list={FILTERS} value={filter} onChange={setFilter} />
-				)}
-				{
-					/* isStateRead */ isEachNftLoaded ? (
-						<>
-							{isAnyNft && <ul className={styles.list}>{NFTs}</ul>}
-							{
-								!isAnyNft && (
-									<h2>There are no NFTs at the moment</h2>
-								) /* <InfoText text="There are no NFTs at the moment." /> */
-							}
-						</>
-					) : (
-						<Loader />
-					)
-				}
-			</div>
 			{account && (
 				<div className={styles.fondo}>
 					<div className={styles.container_btn_register}>
 						<img className={styles.arrow} src={arrow} alt="" />
 						<Link to="/create">
-							<button className={styles.button} type="button">
+							{ownerNFTs?.length !== 0 && (
+								<button className={styles.button} type="button">
+									Add other NFT
+								</button>
+							)}
+							{ownerNFTs?.length === 0 && (
+								<button className={styles.button} type="button">
+									Add your first NFT!!
+								</button>
+							)}
+							{/* 							<button className={styles.button} type="button">
 								Register
-							</button>
+							</button> */}
 						</Link>
 					</div>
 				</div>
 			)}
+			<div className="card">
+				<h2 style={{ marginTop: "30px" }}>NFTs</h2>
+				{account && (
+					<Filter list={FILTERS} value={filter} onChange={setFilter} />
+				)}
+				{isEachNftLoaded ? (
+					<>
+						{isAnyNft && <ul className={styles.list}>{NFTs}</ul>}
+						{!isAnyNft && <h2>There are no NFTs at the moment</h2>}
+					</>
+				) : (
+					<Loader />
+				)}
+			</div>
+
 			<Enlace title="Water Statistics" />
-			{!account && <h2>Statistics not available</h2>}
-			<ReadState />
+			{!account && <h2>Statistics not available without login</h2>}
+			{account && <ReadState />}
 		</>
 	);
 }

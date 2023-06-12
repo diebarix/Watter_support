@@ -27,7 +27,7 @@ ChartJS.register(
 	Legend
 );
 
-export const options1 = {
+export const options = {
 	responsive: true,
 	plugins: {
 		legend: {
@@ -35,7 +35,7 @@ export const options1 = {
 		},
 		title: {
 			display: true,
-			text: "Pressure",
+			text: "tete",
 			padding: {
 				top: 10,
 				bottom: 30,
@@ -44,35 +44,6 @@ export const options1 = {
 		},
 	},
 };
-
-export const options2 = {
-	responsive: true,
-	plugins: {
-		legend: {
-			position: "top" as const,
-		},
-		title: {
-			display: true,
-			text: "pH",
-			padding: {
-				top: 10,
-				bottom: 30,
-			},
-			font: { size: 26 },
-		},
-		LinearScale: {
-			y: {
-				min: -25,
-				max: 100,
-			},
-			x: {
-				ticks: { color: "rgba(0, 220, 195)" },
-			},
-		},
-	},
-};
-
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
 ChartJS.defaults.borderColor = "#0C2650";
 ChartJS.defaults.color = "#ECECEC";
 
@@ -162,79 +133,14 @@ function separateNFT_id(NFTsWithId: string[]): any[] {
 	return NFTs;
 }
 
-/* function extractInfo(NFTs: any[]) {
-	const waterMetrics = [];
-	for (let i = 0; i < NFTs.length; i++) {
-		if (NFTs[i]["reference"] !== "") {
-			const jsonObject: { [key: string]: unknown } = {};
-			const promise = fetch(getIpfsAddress(NFTs[i]["reference"]))
-				.then(response => response.json())
-				.then(data => {
-					jsonObject["residence"] = data["residence"];
-					jsonObject["ph"] = data["ph"];
-					jsonObject["waterFlow"] = data["waterFlow"];
-				});
-			waterMetrics.push(jsonObject);
-		}
-	}
-	return waterMetrics;
-} */
-
 interface JsonObject {
 	residence: string;
 	ph: number;
 	waterFlow: number;
 }
 
-/* function extractInfo(NFTs: any[]): WaterMetrics[] {
-	const waterMetrics: WaterMetrics[] = [];
-	for (let i = 0; i < NFTs.length; i++) {
-		if (NFTs[i]["reference"] !== "") {
-			const jsonObject: WaterMetrics = {
-				residence: "",
-				ph: "",
-				waterFlow: "",
-			};
-
-			const promise = fetch(getIpfsAddress(NFTs[i]["reference"]))
-				.then(response => response.json())
-				.then(data => {
-					jsonObject["residence"] = data["residence"];
-					jsonObject["ph"] = data["ph"];
-					jsonObject["waterFlow"] = data["waterFlow"];
-				});
-
-			waterMetrics.push(jsonObject);
-		}
-	}
-	return waterMetrics;
-} */
-
-/* function extractInfo(NFTs: any[]): any[] {
-	const waterMetricsResult: any[] = [];
-
-	for (let i = 0; i < NFTs.length; i++) {
-		if (NFTs[i]["reference"] !== "") {
-			fetch(getIpfsAddress(NFTs[i]["reference"]))
-				.then(response => response.json())
-				.then(data => {
-					const jsonObject: any = {};
-					const residence = data["residence"];
-					const ph = data["ph"];
-					const waterFlow = data["waterFlow"];
-					console.log("Residence:", residence);
-					console.log("pH:", ph);
-					console.log("Water Flow:", waterFlow);
-					waterMetricsResult.push(jsonObject);
-				});
-		}
-	}
-	return waterMetricsResult;
-} */
-
 async function extractInfo(NFTs: any[]) {
 	const waterMetrics: JsonObject[] = [];
-	// const waterMetrics = [];
 	for (let i = 0; i < NFTs.length; i++) {
 		if (NFTs[i]["reference"] !== "") {
 			const jsonObject: JsonObject = {} as JsonObject;
@@ -251,11 +157,6 @@ async function extractInfo(NFTs: any[]) {
 
 async function totalResult(NFTs: any[]): Promise<JsonObject[]> {
 	const result = await extractInfo(NFTs);
-	for (let i = 0; i < result.length; i++) {
-		/* console.log(result[i].waterFlow);
-		console.log(result[i].ph);
-		console.log(result[i].residence); */
-	}
 	return result;
 }
 
@@ -275,9 +176,22 @@ function ReadState() {
 	if (ownerKey == null) {
 		return (
 			<div className="container">
-				<center>Full State</center>
 				<center className="state">
-					<p>This user doesn't have NFT asociated to his account</p>
+					<p style={{ fontSize: "18px" }}>
+						This user doesn't have NFT asociated to his account
+					</p>
+					<p style={{ fontSize: "18px" }}>
+						Please add more NFTs{" "}
+						<span
+							style={{
+								fontSize: "35px",
+								color: "var(--main-bg-color)",
+								fontWeight: "bold",
+							}}
+						>
+							to see the magic
+						</span>{" "}
+					</p>
 				</center>
 			</div>
 		);
@@ -287,21 +201,6 @@ function ReadState() {
 		const NFTsWithId = findNFTs(tokenMetadata, NFTsById); //Get the NFTs with their IDs for the logged user.
 		const NFTs = separateNFT_id(NFTsWithId); //Return an array with all the NFTs that belongs to the logged user
 
-		/* const resultPromise = totalResult(NFTs);
-		const result = await resultPromise; */
-
-		/* 		(async () => {
-			const resultPromise = totalResult(NFTs);
-			const result = await resultPromise;
-			// Utiliza el resultado aquí o realiza otras operaciones necesarias
-			// console.log(result[0].ph);
-			result.forEach(item => {
-				console.log(item.waterFlow);
-				console.log(item.ph);
-				console.log(item.residence);
-			});
-		})(); */
-
 		// Función asincrónica para obtener y establecer los datos
 		const fetchData = async () => {
 			const result = await totalResult(NFTs);
@@ -310,11 +209,6 @@ function ReadState() {
 		};
 
 		fetchData(); // Llamada a la función para obtener los datos
-		/* 		const phContent: number[] = [];
-		const waterFlowContent: number[] = []; */
-		/* data.map((item, index) => (
-			return 
-		)) */
 
 		const phContent = data.map(item => {
 			return item.ph;
@@ -325,26 +219,9 @@ function ReadState() {
 		const residenceContent = data.map(item => {
 			return item.residence;
 		});
-		// console.log(pepe);
-
-		// const labelsProof = dateContent;
-
-		/* 		const myDataJSON =
-			'[{"date": "10-50-69", "ph": 6, "water_flow": 12}, {"date": "10-60-79", "ph": 7, "water_flow": 15},{"date": "10-60-79", "ph": 10, "water_flow": 25},{"date": "10-60-79", "ph": 2, "water_flow": 55},{"date": "10-60-79", "ph": 20, "water_flow": 5}]';
-
-		const newData = JSON.parse(myDataJSON);
-		const residenceContent: string[] = [];
-		const phContent: number[] = [];
-		const waterFlowContent: number[] = [];
-
-		for (let i = 0; i < newData.length; i += 1) {
-			residenceContent.push(newData[i].date);
-			phContent.push(newData[i].ph);
-			waterFlowContent.push(newData[i].water_flow);
-		} */
 
 		const dataProof = {
-			labels: residenceContent /* : labelsProof */,
+			labels: residenceContent,
 			datasets: [
 				{
 					label: "ph",
@@ -354,9 +231,7 @@ function ReadState() {
 				},
 				{
 					label: "water_flow",
-					data: waterFlowContent /* labels.map(() =>
-						faker.datatype.number({ min: -1000, max: 1000 })
-					) */,
+					data: waterFlowContent,
 					borderColor: "rgb(53, 162, 235)",
 					backgroundColor: "rgba(53, 162, 235, 0.5)",
 				},
@@ -367,18 +242,9 @@ function ReadState() {
 			<div>
 				<Line
 					style={{ marginBottom: "200px" }}
-					options={options1}
+					options={options}
 					data={dataProof}
 				/>
-
-				{/* {data.map((item, index) => (
-					<div key={index}>
-						<div>WaterFlow:{item.waterFlow}</div>
-						<div>PH:{item.ph}</div>
-						<div>Residence:{item.residence}</div>
-					</div>
-				))} */}
-				{/* <center className="state"></center> */}
 			</div>
 		);
 	}
