@@ -97,7 +97,7 @@ function Home() {
 			{account &&
 			ownerNFTs?.length &&
 			ownerNFTs.length >= 0 &&
-			ownerNFTs.length <= 8 ? (
+			ownerNFTs.length <= 3 ? (
 				<div style={{ fontSize: "20px" }}>
 					Add more NFTs{" "}
 					<span style={{ color: "var(--main-bg-color)", fontWeight: "bold" }}>
