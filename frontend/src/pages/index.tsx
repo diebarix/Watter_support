@@ -14,20 +14,7 @@ const routes = [
 function Routing() {
 	const getRoutes = () =>
 		routes.map(({ path, Page, isPrivate }) => (
-			<Route
-				key={path}
-				path={path}
-				element={
-					/* isPrivate ? (
-					<OnLogin fallback={<InfoText text="In order to use all features, please login" />}>
-						<Page />
-					</OnLogin>
-				) : (
-					<Page />
-				) */
-					<Page />
-				}
-			/>
+			<Route key={path} path={path} element={<Page />} />
 		));
 
 	return <Routes>{getRoutes()}</Routes>;

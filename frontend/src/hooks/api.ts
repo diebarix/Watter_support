@@ -11,7 +11,6 @@ import metaTxt from "assets/meta/meta.txt";
 import { getIpfsAddress } from "utils";
 import { useEffect, useState } from "react";
 import { useMetadata, useWasmMetadata } from "./useMetadata";
-// import moduleName from "../assets/wasm/nft.meta.wasm";
 
 function useNFTMetadata() {
 	return useMetadata(metaTxt);

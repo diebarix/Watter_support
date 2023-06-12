@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useApi, useAlert, useAccount } from "@gear-js/react-hooks";
 import { AnyJson } from "@polkadot/types/types";
 import { getIpfsAddress } from "utils";
-import faker from "faker";
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -15,7 +14,8 @@ import {
 	Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-//Get program state
+
+// Get program state
 
 ChartJS.register(
 	CategoryScale,
@@ -35,7 +35,7 @@ export const options = {
 		},
 		title: {
 			display: true,
-			text: "tete",
+			text: "Your Stastics",
 			padding: {
 				top: 10,
 				bottom: 30,
@@ -67,10 +67,7 @@ function GetState() {
 		const getState = async () => {
 			try {
 				const metadata = getProgramMetadata("0x" + meta);
-				const result = await api.programState.read(
-					{ programId: programId },
-					metadata
-				);
+				const result = await api.programState.read({ programId }, metadata);
 				setFullState(result.toJSON());
 				// alert.success("Successful state");
 			} catch (error) {
@@ -83,7 +80,7 @@ function GetState() {
 	return fullState;
 }
 
-//Check if a user has NFTs
+// Check if a user has NFTs
 function findKeyByValue<T>(
 	obj: Record<string, T[]>,
 	value: T
@@ -99,7 +96,7 @@ function findKeyByValue<T>(
 	return undefined;
 }
 
-//Search all the NFTs id that belongs to the logged user
+// Search all the NFTs id that belongs to the logged user
 function findNFTsID<T>(obj: Record<string, T[]>, value: T): string[] {
 	const keys = Object.keys(obj);
 	let belongedNFTS: string[] = [];
@@ -113,20 +110,20 @@ function findNFTsID<T>(obj: Record<string, T[]>, value: T): string[] {
 	return belongedNFTS;
 }
 
-//Search the NFTS for the logged user
+// Search the NFTS for the logged user
 function findNFTs(NFTmetadata: Record<string, any>, NFTsID: string[]): any[] {
 	const NFTs: any[] = [];
-	for (let i = 0; i < NFTsID.length; i++) {
+	for (let i = 0; i < NFTsID.length; i += 1) {
 		const id = NFTsID[i];
 		NFTs.push(NFTmetadata[id]);
 	}
 	return NFTs;
 }
 
-//Separate the NFTs from their ids
-function separateNFT_id(NFTsWithId: string[]): any[] {
+// Separate the NFTs from their ids
+function separateNFTId(NFTsWithId: string[]): any[] {
 	const NFTs = [];
-	for (let i = 0; i < NFTsWithId.length; i++) {
+	for (let i = 0; i < NFTsWithId.length; i += 1) {
 		const register = NFTsWithId[i];
 		NFTs.push(register[1]);
 	}
@@ -141,7 +138,7 @@ interface JsonObject {
 
 async function extractInfo(NFTs: any[]) {
 	const waterMetrics: JsonObject[] = [];
-	for (let i = 0; i < NFTs.length; i++) {
+	for (let i = 0; i < NFTs.length; i += 1) {
 		if (NFTs[i]["reference"] !== "") {
 			const jsonObject: JsonObject = {} as JsonObject;
 			const response = await fetch(getIpfsAddress(NFTs[i]["reference"]));
@@ -160,18 +157,18 @@ async function totalResult(NFTs: any[]): Promise<JsonObject[]> {
 	return result;
 }
 
-//Convertir en JSON el estado del programa.
+// Convertir en JSON el estado del programa.
 function ReadState() {
 	const [data, setData] = useState<JsonObject[] | never[]>([]);
-	const state = GetState(); //The State as AnyJSON
-	const CopyState = Object.assign({}, state); //Create a copy and no a reference for the state as AnyJSON
-	const stateJSON = JSON.parse(JSON.stringify(CopyState)); //Change the state from AnyJSON to string
-	const token = Object.assign({}, stateJSON.token); //Create a copy of the values for token
-	const tokenMetadata = Object.assign({}, token.tokenMetadataById); //Create a copy of the values for tokenMetadataById
-	const ownerId = Object.assign({}, token.ownerById); //Create a copy of the values for ownerById
-	const { account } = useAccount(); //Get the account info
-	const userId = account?.decodedAddress; //Get the userId that could be associated to a NFT ((The user logged)
-	const ownerKey = findKeyByValue(ownerId, userId); //If this variable equals to null, it means that the user doesn't have any register
+	const state = GetState(); // The State as AnyJSON
+	const CopyState = Object.assign({}, state); // Create a copy and no a reference for the state as AnyJSON
+	const stateJSON = JSON.parse(JSON.stringify(CopyState)); // Change the state from AnyJSON to string
+	const token = Object.assign({}, stateJSON.token); // Create a copy of the values for token
+	const tokenMetadata = Object.assign({}, token.tokenMetadataById); // Create a copy of the values for tokenMetadataById
+	const ownerId = Object.assign({}, token.ownerById); // Create a copy of the values for ownerById
+	const { account } = useAccount(); // Get the account info
+	const userId = account?.decodedAddress; // Get the userId that could be associated to a NFT ((The user logged)
+	const ownerKey = findKeyByValue(ownerId, userId); // If this variable equals to null, it means that the user doesn't have any register
 
 	if (ownerKey == null) {
 		return (
@@ -189,65 +186,63 @@ function ReadState() {
 								fontWeight: "bold",
 							}}
 						>
-							to see the magic
+							TO SEE THE MAGIC
 						</span>{" "}
 					</p>
 				</center>
 			</div>
 		);
-	} else {
-		const NFTsById = findNFTsID(ownerId, userId); //Get all the NFTs ID that belongs to the logged user.
-		// const NFTsById = findNFTsID(ownerId, "0xe030189bdc4283797efaffd4a1b73372ddf4109d4a8ba38f6cd9f2a312f9622b"); //This is for a test with a user with a lot of NFTs
-		const NFTsWithId = findNFTs(tokenMetadata, NFTsById); //Get the NFTs with their IDs for the logged user.
-		const NFTs = separateNFT_id(NFTsWithId); //Return an array with all the NFTs that belongs to the logged user
-
-		// Función asincrónica para obtener y establecer los datos
-		const fetchData = async () => {
-			const result = await totalResult(NFTs);
-			// console.log(result);
-			setData(result);
-		};
-
-		fetchData(); // Llamada a la función para obtener los datos
-
-		const phContent = data.map(item => {
-			return item.ph;
-		});
-		const waterFlowContent = data.map(item => {
-			return item.waterFlow;
-		});
-		const residenceContent = data.map(item => {
-			return item.residence;
-		});
-
-		const dataProof = {
-			labels: residenceContent,
-			datasets: [
-				{
-					label: "ph",
-					data: phContent,
-					borderColor: "rgb(255, 99, 132)",
-					backgroundColor: "#0C2650",
-				},
-				{
-					label: "water_flow",
-					data: waterFlowContent,
-					borderColor: "rgb(53, 162, 235)",
-					backgroundColor: "rgba(53, 162, 235, 0.5)",
-				},
-			],
-		};
-
-		return (
-			<div>
-				<Line
-					style={{ marginBottom: "200px" }}
-					options={options}
-					data={dataProof}
-				/>
-			</div>
-		);
 	}
+	const NFTsById = findNFTsID(ownerId, userId); // Get all the NFTs ID that belongs to the logged user.
+	const NFTsWithId = findNFTs(tokenMetadata, NFTsById); // Get the NFTs with their IDs for the logged user.
+	const NFTs = separateNFTId(NFTsWithId); // Return an array with all the NFTs that belongs to the logged user
+
+	// Función asincrónica para obtener y establecer los datos
+	const fetchData = async () => {
+		const result = await totalResult(NFTs);
+		// console.log(result);
+		setData(result);
+	};
+
+	fetchData(); // Llamada a la función para obtener los datos
+
+	const phContent = data.map(item => {
+		return item.ph;
+	});
+	const waterFlowContent = data.map(item => {
+		return item.waterFlow;
+	});
+	const residenceContent = data.map(item => {
+		return item.residence;
+	});
+
+	const dataProof = {
+		labels: residenceContent,
+		datasets: [
+			{
+				label: "ph",
+				data: phContent,
+				borderColor: "rgb(255, 99, 132)",
+				backgroundColor: "#0C2650",
+			},
+			{
+				label: "water_flow",
+				data: waterFlowContent,
+				borderColor: "rgb(53, 162, 235)",
+				backgroundColor: "rgba(53, 162, 235, 0.5)",
+			},
+		],
+	};
+
+	return (
+		<div>
+			<Line
+				style={{ marginBottom: "200px" }}
+				options={options}
+				data={dataProof}
+			/>
+		</div>
+	);
 }
 
 export { ReadState };

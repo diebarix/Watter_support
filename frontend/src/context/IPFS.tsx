@@ -15,10 +15,6 @@ function IPFSProvider({ children }: /* ProviderProps */ Props) {
 	const { Provider } = IPFSContext;
 
 	return (
-		/* 	{{
-	console.log("hola", ipfsRef);
-	console.log(ipfsRef.current);
-}} */
 		<Provider value={ipfsRef.current}>{children}</Provider>
 	);
 }
