@@ -35,7 +35,6 @@ export const useWasmMetadata = (source: RequestInfo | URL) => {
 				.then(buffer => setData(buffer))
 				.catch(({ message }: Error) => alert.error(`Fetch error: ${message}`));
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [source]);
 
 	return { buffer: data };
