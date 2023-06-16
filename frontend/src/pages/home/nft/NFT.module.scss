@@ -42,9 +42,67 @@
 	color: var(--color-soft);
 }
 
+p {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 .container_nft {
 	background-color: var(--second-color);
 	padding: 8px;
 	border-radius: 8px;
 	height: 100%;
+	transition: all 0.2s ease-in-out;
+	position: relative;
+}
+
+.container_nft:hover {
+	background-color: var(--third-color);
+	transform: scale(0.98);
+}
+
+.nft_title {
+	text-align: center;
+	border-bottom: 2px solid var(--fourth-color);
+	transition: all 0.2s ease-in-out;
+}
+
+.container_nft:hover .nft_title {
+	border-bottom: 2px solid var(--main-bg-color);
+}
+
+.clipboard {
+	width: 20px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.clipboard_text {
+	position: absolute;
+	background-color: var(--fourth-color);
+	padding: 2px 4px;
+	border-radius: 5px;
+	top: 0;
+	right: 0;
+	transform: translateX(10px) translateY(-28px);
+	z-index: 50;
+	opacity: 0;
+	transition: all 0.3s ease-in-out;
+}
+.visible {
+	opacity: 1;
+}
+
+.clipboard:hover {
+	transform: scale(1.1);
+}
+.clipboard_button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background: none;
+	border: 0;
+	// all: "unset";
 }

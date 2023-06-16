@@ -68,7 +68,7 @@ function NFT() {
 		<>
 			{nft ? (
 				<Content
-					heading={`${nft.name} #${nft.id}`}
+					heading={`${nft.name} __ #${nft.id}`}
 					image={getIpfsAddress(nft.media)}
 					ownerId={nft.ownerId}
 					description={nft.description}

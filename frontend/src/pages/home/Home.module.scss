@@ -30,13 +30,14 @@
 	margin: 15px;
 	padding: 15px;
 	display: grid;
-	grid-template-columns: 1fr 1fr /* repeat(1fr, 1fr) */;
-	grid-template-rows: repeat(1, 1fr) /* repeat(3, 1fr) */;
+
+	// grid-template-columns: 1fr 1fr /* repeat(1fr, 1fr) */;
+	// grid-template-rows: repeat(1, 1fr) /* repeat(3, 1fr) */;
+	grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
 	grid-gap: 5px;
-	grid-auto-rows: minmax(auto, 50%);
-	grid-auto-columns: minmax(100px, 100px);
-	
-	overflow: hidden;
+	/* grid-auto-rows: minmax(auto, 50%);
+	grid-auto-columns: minmax(100px, 100px); */
+
 	border-radius: 8px;
 }
 .container_list {
