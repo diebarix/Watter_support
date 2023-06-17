@@ -42,17 +42,40 @@ function Content(props: Props) {
 
 	const detailsClassName = clsx(styles.main, styles.details);
 
+	function waterHealth() {
+		if (ph > 6.5 && ph < 9.5) {
+			return (
+				<>
+					<Card heading="pH Health" text={"pH is healthy"} />
+					<div className={`${styles.health_span} ${styles.green}`}>
+						Is in the range of 6.5 to 9.5 healthy
+					</div>
+				</>
+			);
+		} else {
+			return (
+				<>
+					<Card heading="pH Health" text={"pH is not healthy"} />
+					<div className={`${styles.health_span} ${styles.red}`}>
+						Not is in the range of 6.5 to 9.5 healthy
+					</div>
+				</>
+			);
+		}
+	}
+
 	return (
 		<>
 			<h2 className={styles.heading}>{heading}</h2>
 			<div className={styles.main}>
 				<section>
-					<div className={styles.card_container}>
+					<div>
 						<Card heading="Owner" text={ownerId} />
 						<Card heading="Description" text={description} />
 						<Card heading="Water flow" text={waterFlow.toString()} />
 						<Card heading="Ph" text={ph.toString()} />
 						<Card heading="Residence" text={residence} />
+						{waterHealth()}
 					</div>
 					{isAnyApprovedAccount && (
 						<Addresses

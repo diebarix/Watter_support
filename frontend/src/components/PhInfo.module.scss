@@ -1,0 +1,42 @@
+.ph_info_container {
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+	word-wrap: break-word;
+	color: var(--text-color);
+}
+
+.ph_info_container > p {
+	font-size: 1rem;
+	text-align: justify;
+}
+
+.ph_info_container > h2 {
+	font-size: 1.5rem;
+	text-align: center;
+	color: var(--main-bg-color);
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+.second_h2 {
+	margin-top: 45px;
+}
+
+.ph_info_container > h3 {
+	font-size: 1.3rem;
+	margin-top: 10px;
+	color: var(--color-soft);
+	font-weight: bold;
+	position: relative;
+}
+
+.ph_info_container > h3::after {
+	content: "";
+	position: absolute;
+	bottom: -1px;
+	left: 0;
+	width: 20%;
+	height: 2px;
+	background-color: var(--second-color);
+}

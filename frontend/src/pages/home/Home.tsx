@@ -11,6 +11,7 @@ import { NFT } from "./nft";
 import { Filter } from "./filter";
 import arrow from "../../assets/images/arrow.png";
 import styles from "./Home.module.scss";
+import { PhInfo } from "components/PhInfo";
 
 //-----------------------------------------------------------
 // Empiza codigo del componente Home
@@ -107,6 +108,8 @@ function Home() {
 			) : null}
 			{!account && <h2>Statistics not available without login</h2>}
 			{account && <ReadState />}
+			<Enlace title="Range and Parameters of Water Quality" />
+			<PhInfo />
 		</>
 	);
 }

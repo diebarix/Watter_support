@@ -40,3 +40,19 @@
 		margin-right: 30px;
 	}
 }
+
+.health_span {
+	background-color: var(--second-color);
+	padding: 10px;
+	text-align: center;
+	margin: auto;
+	text-transform: uppercase;
+}
+
+.green {
+	background-color: rgba(61, 181, 43, 0.7);
+}
+
+.red {
+	background-color: rgba(255, 0, 0, 0.7);
+}
