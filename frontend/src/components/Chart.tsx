@@ -237,7 +237,7 @@ function ReadState() {
 	return (
 		<div>
 			<Line
-				style={{ marginBottom: "200px" }}
+				// style={{ marginBottom: "200px" }}
 				options={options}
 				data={dataProof}
 			/>

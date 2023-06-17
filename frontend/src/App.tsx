@@ -11,8 +11,12 @@ function Component() {
 
 	const isAppReady = isApiReady && isAccountReady;
 	return (
-		<div style={{ overflow: "hidden" }}>
-			<Header isAccountVisible={isAccountReady} />
+		<>
+			<div className="app_container">
+				<Header isAccountVisible={isAccountReady} />
+				<main>{isAppReady ? <Routing /> : <ApiLoader />}</main>
+				<Footer />
+			</div>
 			<img className="waves" src={waves} alt="" />
 			<img className="waves" src={waves} alt="" />
 			<img className="waves" src={waves} alt="" />
@@ -23,9 +27,7 @@ function Component() {
 			<img className="waves" src={waves} alt="" />
 			<img className="waves" src={waves} alt="" />
 			<img className="waves" src={waves} alt="" />
-			<main>{isAppReady ? <Routing /> : <ApiLoader />}</main>
-			<Footer />
-		</div>
+		</>
 	);
 }
 export const App = withProviders(Component);
