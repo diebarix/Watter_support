@@ -42,7 +42,6 @@ function NFT({ id, name, media, description, reference }: Props) {
 			</Link>
 			<button
 				className={styles.clipboard_button}
-				// style={{ all: "unset" }}
 				onClick={() => clipboardSee()}
 			>
 				<img className={styles.clipboard} src={ClipboardImage} alt="" />

@@ -1,12 +1,6 @@
 @use "@gear-js/ui/variables" as *;
 @use "assets/styles/shared" as *;
 
-/* .nft {
-  @include card();
-  display: block;
-  height: 100%;
-} */
-
 .image {
 	display: block;
 	margin: 0 auto 30px;
@@ -104,5 +98,4 @@
 	right: 0;
 	background: none;
 	border: 0;
-	// all: "unset";
 }

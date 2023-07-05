@@ -63,7 +63,6 @@ function NFT() {
 	if (residence) {
 		res = residence;
 	}
-	// const nfts = useNFTs().nfts;
 	return (
 		<>
 			{nft ? (

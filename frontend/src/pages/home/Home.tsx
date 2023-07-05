@@ -13,8 +13,6 @@ import arrow from "../../assets/images/arrow.png";
 import styles from "./Home.module.scss";
 import { PhInfo } from "components/PhInfo";
 
-//-----------------------------------------------------------
-// Empiza codigo del componente Home
 function Home() {
 	const [filter, setFilter] = useState("All");
 	const { account } = useAccount();

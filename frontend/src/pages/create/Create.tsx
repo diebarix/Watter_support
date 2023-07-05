@@ -30,9 +30,7 @@ function Create() {
 
 	const alert = useAlert();
 	const ipfs = useIPFS();
-	// console.log(ipfs);
 	const sendMessage = useSendNFTMessage();
-	// console.log(sendMessage);
 
 	const resetForm = () => {
 		reset();

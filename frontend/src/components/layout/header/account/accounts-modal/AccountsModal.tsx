@@ -1,12 +1,6 @@
-/* import type { InjectedAccountWithMeta } from '@polkadot/extension-inject/types'; */
 import { Modal } from '@gear-js/ui';
 import { useAccount } from '@gear-js/react-hooks';
 import { Accounts } from '../accounts';
-
-/* type Props = {
-  accounts: InjectedAccountWithMeta[] | undefined;
-  close: () => void;
-}; */
 
 type Props = {
   close: () => void;
