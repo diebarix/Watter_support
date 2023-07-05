@@ -1,44 +1,58 @@
-import React, { useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import styles from "./Login.module.scss";
 
-function Login() {
-    const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
+type Inputs = {
+    email: string;
+    pass: string;
+}
 
-    const handleSubmit = (event: any) => {
-        event.preventDefault();
-        console.log(email);
-        console.log(pass);
-        //Here is going to be the verification
-        //of email and password for an existing user
+const defaultValues = { email: "", pass: "" };
+
+function Login() {
+    const { register, handleSubmit, formState } = useForm<Inputs>({ defaultValues });
+
+    const { errors } = formState;
+
+    const onSubmit = (data: Inputs) => {
+        console.log(data);
+        //Here the data is send to the backend
     }
 
     return (
-        <div className={styles.main}>
-            <form className={styles.form} onSubmit={handleSubmit}>
-                <label htmlFor="email">Email</label>
+        <div>
+            <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
                 <input
-                    id="email"
-                    type="email"
-                    value={email}
+                    {...register("email", {
+                        required: "Email is required",
+                        validate: {
+                            maxLength: (v) =>
+                                v.length <= 50 || "The email should have at most 50 characters",
+                            matchPattern: (v) =>
+                                /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ||
+                                "Email address shold be a valid address",
+                    }})}
                     placeholder="Enter your email"
-                    onChange={e => setEmail(e.target.value)}
-                    required
                     className={styles.input}
                 />
-                <label htmlFor="password">Password</label>
+                <p className={styles.error}>{errors.email?.message}</p>
                 <input
-                    id="password"
+                    {...register("pass", {
+                        required: "Password is required",
+                        validate: {
+                            maxLength: (v) =>
+                                v.length <= 50 || "The password should have at most 50 characters"
+                    }})}
                     type="password"
-                    value={pass}
                     placeholder="Enter your password"
-                    onChange={e => setPass(e.target.value)}
-                    required
                     className={styles.input}
                 />
-                <button type="submit" className={styles.button}>Login</button>
-                <div>Don't have an account?
+                <p className={styles.error}>{errors.pass?.message}</p>
+                <button type="submit" className={styles.button}>
+                    Login
+                </button>
+                <div>
+                    Don't have an account?
                     <Link to="/register">
                         <button type="button" className={styles.register}>
                             Register Here.
@@ -47,7 +61,7 @@ function Login() {
                 </div>
             </form>
         </div>
-    );
+   )
 }
 
 export { Login };
