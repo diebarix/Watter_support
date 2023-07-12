@@ -6,6 +6,7 @@ import { useIPFS, useSendNFTMessage } from "hooks";
 import { getMintPayload } from "utils";
 import styles from "./Create.module.scss";
 
+//Define inputs types
 type Values = {
 	name: string;
 	description: string;
@@ -28,6 +29,9 @@ function Create() {
 	});
 	const { errors } = formState;
 
+    // Hooks for displaying errors,
+    // Uploading files to IPFS
+    // and sending NFTCreate message to smartcontract
 	const alert = useAlert();
 	const ipfs = useIPFS();
 	const sendMessage = useSendNFTMessage();
@@ -47,26 +51,35 @@ function Create() {
 
 		const jsonString = JSON.stringify(jsonObj);
 
+        // Upload an image (genericReport) to IPFS,
+        // retrieve the CID (content identifier) of the uploaded file,
+        // add an optional jsonString (user's inputs) to IPFS,
+        // retrieve its CID if provided, generate a payload
+        // (for creating a NFT) using the retrieved CIDs and other
+        // parameters, send the payload using sendMessage,
+        // and handle any errors that occur during this process.
 		ipfs
 			.add(genericReport)
-			.then(({ cid } /* : { cid: any } */) => cid)
-			.then(async (imageCid /* : any */) =>
+			.then(({ cid }) => cid)
+			.then(async (imageCid) =>
 				jsonString
 					? { jsonStringCid: (await ipfs.add(jsonString)).cid, imageCid }
-					: { imageCid /* , jsonStringCid: undefined */ }
+					: { imageCid }
 			)
 			.then(
 				(
 					{
 						imageCid,
 						jsonStringCid,
-					} /* : { imageCid: any; jsonStringCid: any } */
+					}
 				) => getMintPayload(name, description, imageCid, jsonStringCid)
 			)
-			.then((payload/* : any */) => sendMessage(payload, { onSuccess: resetForm }))
+			.then((payload) => sendMessage(payload, { onSuccess: resetForm }))
 			.catch(({ message }: Error) => alert.error(message));
 	};
 
+    // Form made with react-hook-form and Input component
+    // from @gear-js/ui library
 	return (
 		<>
 			<h2 className={styles.heading}>Register Data</h2>
