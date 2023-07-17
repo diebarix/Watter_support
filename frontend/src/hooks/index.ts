@@ -6,6 +6,7 @@ import {
 	useSendNFTMessage,
 } from "./api";
 import { useIPFS } from "./context";
+import useToken from "./useToken";
 
 export {
 	useNFT,
@@ -14,4 +15,5 @@ export {
 	useApprovedNFTs,
 	useSendNFTMessage,
 	useIPFS,
+    useToken
 };
