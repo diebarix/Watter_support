@@ -5,5 +5,6 @@ contract/.metahash
 
 frontend/node_modules
 frontend/yarn-error.log
+frontend/build
 
 node_modules
